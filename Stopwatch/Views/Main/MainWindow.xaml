@@ -13,25 +13,27 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Label>Timespan</Label>
+        </StackPanel>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Content="S\S\C">
             </Button>
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Content="Split">
             </Button>
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Content="Clear">
             </Button>
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Content="Records">
             </Button>
         </StackPanel>
     </Grid>
