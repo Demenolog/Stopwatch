@@ -30,7 +30,7 @@
                     Content="Split">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
-                    Content="Clear">
+                    Content="Reset">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
                     Content="Records">
