@@ -7,7 +7,7 @@
         DataContext="{Binding Path=MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}"
         ResizeMode="CanMinimize"
-        Height="150" Width="350">
+        Height="175" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -18,7 +18,9 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <Label Content="{Binding ElapsedTime}"
-                   ContentStringFormat="">
+                   ContentStringFormat="{}{0:hh}:{0:mm}:{0:ss}:{0:fff}" 
+                   FontFamily="Albertus Extra Bold" 
+                   FontSize="50">
             </Label>
         </StackPanel>
         <StackPanel Grid.Row="1"
