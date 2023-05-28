@@ -17,14 +17,17 @@
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <Label>Timespan</Label>
+            <Label Content="{Binding ElapsedTime}">
+
+            </Label>
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <Button Style="{DynamicResource BtnDefStyle}"
-                    Content="{Binding MainButtonStatus, UpdateSourceTrigger=PropertyChanged}">
+                    Content="{Binding MainButtonStatus, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding MainButtonPressed}">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
                     Content="Split">

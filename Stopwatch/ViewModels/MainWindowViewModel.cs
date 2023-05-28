@@ -74,6 +74,8 @@ namespace Stopwatch.ViewModels
         }
 
         #endregion Start command
+        
+        #region Reset command
 
         public ICommand Reset { get; }
 
@@ -84,12 +86,14 @@ namespace Stopwatch.ViewModels
             StopwatchLogic.Reset();
         }
 
+        #endregion
+
         #endregion Commands
 
         public MainWindowViewModel()
         {
             MainButtonPressed = new LambdaCommand(OnMainButtonPressedExecute, CanMainButtonPressedExecuted);
-
+            
             Reset = new LambdaCommand(OnResetExecute, CanResetExecuted);
         }
     }
