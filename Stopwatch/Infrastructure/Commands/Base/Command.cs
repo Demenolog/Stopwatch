@@ -18,20 +18,20 @@ namespace Stopwatch.Infrastructure.Commands.Base
             }
         }
 
-        public event EventHandler ExecutableChanged;
+        public event EventHandler? ExecutableChanged;
 
-        event EventHandler ICommand.CanExecuteChanged
+        event EventHandler? ICommand.CanExecuteChanged
         {
             add => CommandManager.RequerySuggested += value;
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        bool ICommand.CanExecute(object parameter) => _executable && CanExecute(parameter);
+        bool ICommand.CanExecute(object? parameter) => _executable && CanExecute(parameter!);
 
-        void ICommand.Execute(object parameter)
+        void ICommand.Execute(object? parameter)
         {
             if (!((ICommand)this).CanExecute(parameter)) return;
-            Execute(parameter);
+            Execute(parameter!);
         }
 
         protected virtual bool CanExecute(object p) => true;
