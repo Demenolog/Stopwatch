@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using Stopwatch.ViewModels;
+using static Stopwatch.Infrastructure.Constans.ButtonStatus;
 
 namespace Stopwatch.Models
 {
@@ -17,12 +18,15 @@ namespace Stopwatch.Models
                 switch (isRunning)
                 {
                     case false when Stopwatch == null:
+                        ChangeButtonStatus(Status.Started);
                         Start();
                         break;
                     case true when Stopwatch != null:
+                        ChangeButtonStatus(Status.Stopped);
                         Stop();
                         break;
                     default:
+                        ChangeButtonStatus(Status.Continued);
                         Continue();
                         break;
                 }
@@ -50,8 +54,6 @@ namespace Stopwatch.Models
             MainWindow.IsRunning = false;
 
             Stopwatch.Stop();
-
-            Stopwatch = null!;
         }
 
         private static void Continue()
@@ -59,6 +61,22 @@ namespace Stopwatch.Models
             MainWindow.IsRunning = true;
 
             Stopwatch?.Start();
+        }
+
+        private static void ChangeButtonStatus(Enum status)
+        {
+            switch (status)
+            {
+                case Status.Started:
+                    MainWindow.MainButtonStatus = "Stop";
+                    break;
+                case Status.Stopped:
+                    MainWindow.MainButtonStatus = "Continue";
+                    break;
+                default:
+                    MainWindow.MainButtonStatus = "Stop";
+                    break;
+            }
         }
         
         public static void Reset()
