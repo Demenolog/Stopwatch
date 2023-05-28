@@ -3,6 +3,7 @@ using Stopwatch.Models;
 using Stopwatch.ViewModels.Base;
 using System;
 using System.Windows.Input;
+using Stopwatch.Services;
 
 namespace Stopwatch.ViewModels
 {
@@ -88,6 +89,20 @@ namespace Stopwatch.ViewModels
 
         #endregion
 
+        #region ShowRecords command
+
+        public ICommand ShowRecords { get; }
+
+        private bool CanShowRecordsExecuted(object p) => true;
+
+        private async void OnShowRecordsExecute(object p)
+        {
+            DbCreationService.CreateDb();
+        }
+
+
+        #endregion ShowRecords command
+
         #endregion Commands
 
         public MainWindowViewModel()
@@ -95,6 +110,9 @@ namespace Stopwatch.ViewModels
             MainButtonPressed = new LambdaCommand(OnMainButtonPressedExecute, CanMainButtonPressedExecuted);
             
             Reset = new LambdaCommand(OnResetExecute, CanResetExecuted);
+
+            ShowRecords = new LambdaCommand(OnShowRecordsExecute, CanShowRecordsExecuted);
+
         }
     }
 }

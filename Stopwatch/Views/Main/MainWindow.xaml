@@ -39,6 +39,7 @@
                     Content="Reset">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
+                    Command="{Binding ShowRecords}"
                     Content="Records">
             </Button>
         </StackPanel>
