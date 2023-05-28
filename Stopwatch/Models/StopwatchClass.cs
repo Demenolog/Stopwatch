@@ -15,6 +15,7 @@ namespace Stopwatch.Models
         static StopwatchLogic()
         {
             MainWindow = new ViewModelLocator().MainWindowModel;
+            CompositionTarget.Rendering += UpdateStopwatch;
         }
 
         public static void Reset()
@@ -22,8 +23,6 @@ namespace Stopwatch.Models
             Stopwatch?.Reset();
 
             ChangeButtonStatus(Status.Reseted);
-
-            //CompositionTarget.Rendering -= UpdateStopwatch;
         }
 
         public static void RunOperation(bool isRunning)
@@ -85,15 +84,11 @@ namespace Stopwatch.Models
             Stopwatch = new System.Diagnostics.Stopwatch();
 
             Stopwatch?.Start();
-            
-            CompositionTarget.Rendering += UpdateStopwatch;
         }
 
         private static void Stop()
         {
             Stopwatch.Stop();
-
-            //CompositionTarget.Rendering -= UpdateStopwatch;
         }
 
         private static void UpdateStopwatch(object? sender, EventArgs args)
