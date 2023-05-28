@@ -1,8 +1,8 @@
-﻿using Stopwatch.Infrastructure.Commands;
-using Stopwatch.Models;
-using Stopwatch.ViewModels.Base;
+﻿using Stopwatch.ViewModels.Base;
 using System;
 using System.Windows.Input;
+using Stopwatch.Infrastructure.Commands;
+using Stopwatch.Models;
 
 namespace Stopwatch.ViewModels
 {
@@ -12,7 +12,7 @@ namespace Stopwatch.ViewModels
 
         #region Title : string - title property
 
-        private string? _title = "StopwatchClass";
+        private string? _title = "Stopwatch";
 
         public string? Title
         {
@@ -52,29 +52,16 @@ namespace Stopwatch.ViewModels
 
         #region Start command
 
-        public ICommand Start { get; }
+        public ICommand MainButtonPressed { get; }
 
-        private bool CanStartExecuted(object p) => true;
+        private bool CanMainButtonPressedExecuted(object p) => true;
 
-        private void OnStartExecute(object p)
+        private void OnMainButtonPressedExecute(object p)
         {
-            StopwatchClass.Start();
+            StopwatchLogic.RunOperation(IsRunning);
         }
 
         #endregion Start command
-
-        #region Stop command
-
-        public ICommand Stop { get; }
-
-        private bool CanStopExecuted(object p) => true;
-
-        private void OnStopExecute(object p)
-        {
-            StopwatchClass.Stop();
-        }
-
-        #endregion
 
         public ICommand Reset { get; }
 
@@ -82,17 +69,13 @@ namespace Stopwatch.ViewModels
 
         private void OnResetExecute(object p)
         {
-            StopwatchClass.Reset();
         }
-
 
         #endregion Commands
 
         public MainWindowViewModel()
         {
-            Start = new LambdaCommand(OnStartExecute, CanStartExecuted);
-
-            Stop = new LambdaCommand(OnStopExecute, CanStopExecuted);
+            MainButtonPressed = new LambdaCommand(OnMainButtonPressedExecute, CanMainButtonPressedExecuted);
 
             Reset = new LambdaCommand(OnResetExecute, CanResetExecuted);
         }

@@ -1,6 +1,6 @@
-﻿using Stopwatch.Infrastructure.Commands.Base;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Stopwatch.Infrastructure.Commands.Base;
 
 namespace Stopwatch.Infrastructure.Commands
 {
