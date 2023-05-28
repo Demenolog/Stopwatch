@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows;
+using System.Windows.Media;
 using Stopwatch.ViewModels;
 
 namespace Stopwatch.Models
@@ -6,64 +8,71 @@ namespace Stopwatch.Models
     internal static class StopwatchLogic
     {
         private static System.Diagnostics.Stopwatch Stopwatch { get; set; } = null!;
-        private static ViewModelLocator ViewLocator { get; }
+        private static MainWindowViewModel MainWindow { get; }
 
         public static void RunOperation(bool isRunning)
         {
-            if (!isRunning && Stopwatch == null)
+            try
             {
-                Start();
+                switch (isRunning)
+                {
+                    case false when Stopwatch == null:
+                        Start();
+                        break;
+                    case true when Stopwatch != null:
+                        Stop();
+                        break;
+                    default:
+                        Continue();
+                        break;
+                }
             }
-            else if (isRunning && Stopwatch != null)
+            catch (Exception ex)
             {
-                Stop();
-            }
-            else
-            {
-                Continue();
+                MessageBox.Show("Error", ex.Message);
             }
         }
 
-        public static void Start()
+        private static void Start()
         {
-            ViewLocator.MainWindowModel.IsRunning = true;
+            MainWindow.IsRunning = true;
 
             Stopwatch = new System.Diagnostics.Stopwatch();
 
             Stopwatch?.Start();
 
             CompositionTarget.Rendering +=
-                (sender, args) => ViewLocator.MainWindowModel.ElapsedTime = Stopwatch!.Elapsed;
+                (sender, args) => MainWindow.ElapsedTime = Stopwatch!.Elapsed;
         }
 
-        public static void Stop()
+        private static void Stop()
         {
-            ViewLocator.MainWindowModel.IsRunning = false;
+            MainWindow.IsRunning = false;
 
             Stopwatch.Stop();
 
             Stopwatch = null!;
         }
 
-        public static void Continue()
+        private static void Continue()
         {
-            ViewLocator.MainWindowModel.IsRunning = true;
+            MainWindow.IsRunning = true;
 
             Stopwatch?.Start();
         }
-
+        
         public static void Reset()
         {
             Stopwatch?.Reset();
 
             // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
             CompositionTarget.Rendering -=
-                (sender, args) => ViewLocator.MainWindowModel.ElapsedTime = Stopwatch.Elapsed;
+                (sender, args) => MainWindow.ElapsedTime = Stopwatch.Elapsed;
         }
 
         static StopwatchLogic()
         {
-            ViewLocator = new ViewModelLocator();
+            MainWindow = new ViewModelLocator().MainWindowModel;
         }
     }
 }

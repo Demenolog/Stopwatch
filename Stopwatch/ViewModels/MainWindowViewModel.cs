@@ -1,8 +1,8 @@
-﻿using Stopwatch.ViewModels.Base;
+﻿using Stopwatch.Infrastructure.Commands;
+using Stopwatch.Models;
+using Stopwatch.ViewModels.Base;
 using System;
 using System.Windows.Input;
-using Stopwatch.Infrastructure.Commands;
-using Stopwatch.Models;
 
 namespace Stopwatch.ViewModels
 {
@@ -46,6 +46,18 @@ namespace Stopwatch.ViewModels
 
         #endregion IsRunning : bool - Tracks the status of an operation
 
+        #region MainButtonStatus : string - Change button name based on status
+
+        private string _mainButtonStatus = "Start";
+
+        public string MainButtonStatus
+        {
+            get => _mainButtonStatus;
+            set => SetField(ref _mainButtonStatus, value);
+        }
+
+        #endregion MainButtonStatus : string - Change button name based on status
+
         #endregion Properties
 
         #region Commands
@@ -69,6 +81,7 @@ namespace Stopwatch.ViewModels
 
         private void OnResetExecute(object p)
         {
+            StopwatchLogic.Reset();
         }
 
         #endregion Commands
