@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows;
 using System.Windows.Media;
 using Stopwatch.ViewModels;
@@ -8,8 +9,22 @@ namespace Stopwatch.Models
 {
     internal static class StopwatchLogic
     {
-        private static System.Diagnostics.Stopwatch Stopwatch { get; set; } = null!;
         private static MainWindowViewModel MainWindow { get; }
+        private static System.Diagnostics.Stopwatch Stopwatch { get; set; } = null!;
+
+        static StopwatchLogic()
+        {
+            MainWindow = new ViewModelLocator().MainWindowModel;
+        }
+
+        public static void Reset()
+        {
+            Stopwatch?.Reset();
+
+            ChangeButtonStatus(Status.Reseted);
+
+            //CompositionTarget.Rendering -= UpdateStopwatch;
+        }
 
         public static void RunOperation(bool isRunning)
         {
@@ -37,60 +52,53 @@ namespace Stopwatch.Models
             }
         }
 
-        private static void Start()
-        {
-            MainWindow.IsRunning = true;
-
-            Stopwatch = new System.Diagnostics.Stopwatch();
-
-            Stopwatch?.Start();
-
-            CompositionTarget.Rendering +=
-                (sender, args) => MainWindow.ElapsedTime = Stopwatch!.Elapsed;
-        }
-
-        private static void Stop()
-        {
-            MainWindow.IsRunning = false;
-
-            Stopwatch.Stop();
-        }
-
-        private static void Continue()
-        {
-            MainWindow.IsRunning = true;
-
-            Stopwatch?.Start();
-        }
-
         private static void ChangeButtonStatus(Enum status)
         {
             switch (status)
             {
                 case Status.Started:
                     MainWindow.MainButtonStatus = "Stop";
+                    MainWindow.IsRunning = true;
                     break;
                 case Status.Stopped:
                     MainWindow.MainButtonStatus = "Continue";
+                    MainWindow.IsRunning = false;
+                    break;
+                case Status.Reseted:
+                    MainWindow.MainButtonStatus = "Start";
+                    MainWindow.IsRunning = false;
                     break;
                 default:
                     MainWindow.MainButtonStatus = "Stop";
+                    MainWindow.IsRunning = true;
                     break;
             }
         }
-        
-        public static void Reset()
-        {
-            Stopwatch?.Reset();
 
-            // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
-            CompositionTarget.Rendering -=
-                (sender, args) => MainWindow.ElapsedTime = Stopwatch.Elapsed;
+        private static void Continue()
+        {
+            Stopwatch?.Start();
         }
 
-        static StopwatchLogic()
+        private static void Start()
         {
-            MainWindow = new ViewModelLocator().MainWindowModel;
+            Stopwatch = new System.Diagnostics.Stopwatch();
+
+            Stopwatch?.Start();
+            
+            CompositionTarget.Rendering += UpdateStopwatch;
+        }
+
+        private static void Stop()
+        {
+            Stopwatch.Stop();
+
+            //CompositionTarget.Rendering -= UpdateStopwatch;
+        }
+
+        private static void UpdateStopwatch(object? sender, EventArgs args)
+        {
+            MainWindow.ElapsedTime = Stopwatch!.Elapsed;
         }
     }
 }

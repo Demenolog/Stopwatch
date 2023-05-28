@@ -33,6 +33,7 @@
                     Content="Split">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
+                    Command="{Binding Reset}"
                     Content="Reset">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"

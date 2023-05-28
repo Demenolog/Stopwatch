@@ -12,7 +12,8 @@ namespace Stopwatch.Infrastructure.Constans
         {
             Started,
             Stopped,
-            Continued
+            Continued,
+            Reseted
         }
     }
 }
