@@ -24,7 +24,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <Button Style="{DynamicResource BtnDefStyle}"
-                    Content="S\S\C">
+                    Content="{Binding MainButtonStatus, UpdateSourceTrigger=PropertyChanged}">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
                     Content="Split">
