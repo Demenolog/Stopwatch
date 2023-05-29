@@ -12,6 +12,5 @@ namespace Stopwatch.ViewModels
         public MainWindowViewModel MainWindowModel => App.Services.GetRequiredService<MainWindowViewModel>();
 
         public RecordsWindowViewModel RecordsWindowModel => App.Services.GetRequiredService<RecordsWindowViewModel>();
-
     }
 }

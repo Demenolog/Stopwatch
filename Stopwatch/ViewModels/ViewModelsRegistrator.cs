@@ -10,6 +10,7 @@ namespace Stopwatch.ViewModels
     internal static class ViewModelsRegistrator
     {
         public static IServiceCollection AddViewModel(this IServiceCollection services) => services
-            .AddSingleton<MainWindowViewModel>();
+            .AddSingleton<MainWindowViewModel>()
+            .AddSingleton<RecordsWindowViewModel>();
     }
 }
