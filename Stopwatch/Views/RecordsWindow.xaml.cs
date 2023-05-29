@@ -17,9 +17,9 @@ namespace Stopwatch.Views
     /// <summary>
     /// Interaction logic for RecordWindow.xaml
     /// </summary>
-    public partial class RecordWindow : Window
+    public partial class RecordsWindow : Window
     {
-        public RecordWindow()
+        public RecordsWindow()
         {
             InitializeComponent();
         }
