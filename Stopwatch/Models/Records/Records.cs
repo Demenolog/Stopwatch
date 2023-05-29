@@ -12,8 +12,8 @@ namespace Stopwatch.Models.Records
         public int RecordsId { get; set; }
 
         [Required]
-        public string Time { get; set; }
+        public string? Time { get; set; }
         [Required]
-        public string TotalTime { get; set; }
+        public string? TotalTime { get; set; }
     }
 }

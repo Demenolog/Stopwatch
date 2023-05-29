@@ -10,6 +10,8 @@ namespace Stopwatch.Models.Records.Base
 {
     internal class RecordsDb : DbContext
     {
+        public DbSet<Records>? Records { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string path = Path.Combine(Environment.CurrentDirectory, "Records.db");
@@ -19,7 +21,7 @@ namespace Stopwatch.Models.Records.Base
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Records>();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Stopwatch.Services
             }
             else
             {
-                MessageBox.Show("Database already created", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Connected to database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
