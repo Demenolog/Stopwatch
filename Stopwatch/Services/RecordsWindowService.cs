@@ -17,15 +17,19 @@ namespace Stopwatch.Services
             set => s_recordsWindow = value;
         }
 
-        public static void Create()
+        public static bool Create()
         {
             if (RecordsWindow != null)
             {
-                return;
+                return false;
             }
+
+            DbCreationService.CreateDb();
 
             RecordsWindow = new RecordsWindow();
             RecordsWindow.Closed += (o, args) => RecordsWindow = null;
+
+            return true;
         }
 
         public static bool Show()
@@ -39,5 +43,6 @@ namespace Stopwatch.Services
 
             return false;
         }
+
     }
 }
