@@ -97,9 +97,11 @@ namespace Stopwatch.ViewModels
 
         private async void OnShowRecordsExecute(object p)
         {
-            DbCreationService.CreateDb();
+            if (RecordsWindowService.Create())
+            {
+                RecordsWindowService.Show();
+            }
         }
-
 
         #endregion ShowRecords command
 
