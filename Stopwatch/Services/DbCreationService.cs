@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Stopwatch.Models.RecordsDatabase.Base;
+using Stopwatch.Models.Database.Base;
 
 namespace Stopwatch.Services
 {

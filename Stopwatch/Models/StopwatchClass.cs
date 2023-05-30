@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Media;
 using Stopwatch.ViewModels;
+using Stopwatch.ViewModels.Auxiliaries;
 using static Stopwatch.Infrastructure.Constans.ButtonStatus;
 
 namespace Stopwatch.Models

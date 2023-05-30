@@ -4,6 +4,7 @@ using Stopwatch.Services;
 using Stopwatch.ViewModels;
 using System;
 using System.Windows;
+using Stopwatch.ViewModels.Auxiliaries;
 
 namespace Stopwatch
 {
