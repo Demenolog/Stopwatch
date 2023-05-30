@@ -11,6 +11,7 @@ namespace Stopwatch.ViewModels
     {
         public static IServiceCollection AddViewModel(this IServiceCollection services) => services
             .AddSingleton<MainWindowViewModel>()
-            .AddSingleton<RecordsWindowViewModel>();
+            .AddSingleton<RecordsWindowViewModel>()
+        ;
     }
 }
