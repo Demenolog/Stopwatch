@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Stopwatch.Models.Records.Base
+namespace Stopwatch.Models.RecordsDatabase.Base
 {
-    internal class RecordsDb : DbContext
+    internal class RecordsDB : DbContext
     {
         public DbSet<Records>? Records { get; set; }
 

@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Stopwatch.Models.Records.Base;
+using Stopwatch.Models.RecordsDatabase.Base;
 
 namespace Stopwatch.Services
 {
     internal static class DbCreationService
     {
-        private static RecordsDb? s_recordsDb;
+        private static RecordsDB? s_recordsDb;
 
         public static async void CreateDb()
         {
@@ -20,7 +20,7 @@ namespace Stopwatch.Services
                 return;
             }
 
-            s_recordsDb = new RecordsDb();
+            s_recordsDb = new RecordsDB();
 
             bool isExist = await s_recordsDb.Database.CanConnectAsync();
 
