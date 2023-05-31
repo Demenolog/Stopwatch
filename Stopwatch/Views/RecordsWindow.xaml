@@ -34,7 +34,7 @@
                   CanUserResizeColumns="False"
                   CanUserResizeRows="False">
         <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding RecordsId}"
+                <DataGridTextColumn Header="№" Binding="{Binding RecordsId}"
                                     Width="0.10*"/>
                 <DataGridTextColumn Header="Time" Binding="{Binding Time}"
                                     Width="0.50*"/>
