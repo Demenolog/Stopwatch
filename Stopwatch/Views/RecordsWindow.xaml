@@ -26,5 +26,13 @@
                     Content="Clear all">
             </Button>
         </StackPanel>
+        <DataGrid Grid.Row="1" 
+                  d:ItemsSource="{Binding  Records}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="RecordsId" Binding="{Binding }"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

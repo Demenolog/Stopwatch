@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Stopwatch.Database;
 
-namespace Stopwatch.Models.Database.Base
+namespace Stopwatch.Database.Base
 {
     internal class RecordsDB : DbContext
     {

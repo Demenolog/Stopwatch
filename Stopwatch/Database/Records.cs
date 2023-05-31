@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Stopwatch.Models.Database
+namespace Stopwatch.Database
 {
     public class Records
     {

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DirectoryServices;
+﻿using Stopwatch.Database;
+using Stopwatch.Database.Base;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Stopwatch.Models.Database.Base;
 
 namespace Stopwatch.Services
 {
-    internal static class DbCreationService
+    internal static class DbManager
     {
         private static RecordsDB? s_recordsDb;
-
+        public static ObservableCollection<Records>? RecordsCollection { get; set; }
+        
         public static async void CreateDb()
         {
             if (s_recordsDb != null)
@@ -33,6 +31,8 @@ namespace Stopwatch.Services
             {
                 MessageBox.Show("Connected to database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
+            RecordsCollection = new ObservableCollection<Records>(RecordsCollection!.ToArray());
         }
     }
 }

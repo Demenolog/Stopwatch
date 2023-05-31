@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Stopwatch.Views;
+﻿using Stopwatch.Views;
 
 namespace Stopwatch.Services
 {
@@ -24,7 +19,7 @@ namespace Stopwatch.Services
                 return false;
             }
 
-            DbCreationService.CreateDb();
+            DbManager.CreateDb();
 
             RecordsWindow = new RecordsWindow();
             RecordsWindow.Closed += (o, args) => RecordsWindow = null;
@@ -43,6 +38,5 @@ namespace Stopwatch.Services
 
             return false;
         }
-
     }
 }
