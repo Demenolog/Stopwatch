@@ -27,10 +27,17 @@
             </Button>
         </StackPanel>
         <DataGrid Grid.Row="1" 
-                  d:ItemsSource="{Binding  Records}"
-                  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="RecordsId" Binding="{Binding }"></DataGridTextColumn>
+                  ItemsSource="{Binding  Records, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False">
+        <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding RecordsId}"
+                                    Width="0.10*"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding Time}"
+                                    Width="0.50*"/>
+                <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime}"
+                                    Width="0.50*"/>
             </DataGrid.Columns>
         </DataGrid>
 
