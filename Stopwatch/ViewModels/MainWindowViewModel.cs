@@ -99,6 +99,7 @@ namespace Stopwatch.ViewModels
         {
             if (RecordsWindowService.Create())
             {
+                DbManager.UpdateDb();
                 RecordsWindowService.Show();
             }
         }
@@ -114,7 +115,6 @@ namespace Stopwatch.ViewModels
             Reset = new LambdaCommand(OnResetExecute, CanResetExecuted);
 
             ShowRecords = new LambdaCommand(OnShowRecordsExecute, CanShowRecordsExecuted);
-
         }
     }
 }

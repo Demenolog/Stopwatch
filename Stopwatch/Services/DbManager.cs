@@ -1,10 +1,11 @@
 ﻿using Stopwatch.Database;
 using Stopwatch.Database.Base;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using Stopwatch.ViewModels;
 using Stopwatch.ViewModels.Auxiliaries;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Stopwatch.Services
 {
@@ -12,8 +13,8 @@ namespace Stopwatch.Services
     {
         private static RecordsDB? s_recordsDb;
         private static RecordsWindowViewModel? s_recordsWindow = new ViewModelLocator().RecordsWindowModel;
-        
-        public static async void CreateDb()
+
+        public static async Task CreateDb()
         {
             if (s_recordsDb != null)
             {
@@ -33,8 +34,20 @@ namespace Stopwatch.Services
             {
                 MessageBox.Show("Connected to database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
 
-            s_recordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb.Records!.ToList());
+        public static async Task ClearAll()
+        {
+            s_recordsDb?.RemoveRange(s_recordsDb.Records!);
+
+            s_recordsDb?.SaveChangesAsync();
+
+            UpdateDb();
+        }
+
+        public static void UpdateDb()
+        {
+            s_recordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb!.Records!.ToList());
         }
     }
 }

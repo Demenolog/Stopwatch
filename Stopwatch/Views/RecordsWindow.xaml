@@ -22,6 +22,7 @@
                     Content="Delete last">
             </Button>
             <Button Style="{StaticResource BtnDefStyle}"
+                    Command="{Binding DbClearAll}"
                     Width="110"
                     Content="Clear all">
             </Button>

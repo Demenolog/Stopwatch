@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Stopwatch.Database;
-using Stopwatch.Database.Base;
-using Stopwatch.Services;
+﻿using Stopwatch.Database;
+using Stopwatch.Infrastructure.Commands;
 using Stopwatch.ViewModels.Base;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Stopwatch.Services;
 
 namespace Stopwatch.ViewModels
 {
@@ -37,5 +33,22 @@ namespace Stopwatch.ViewModels
 
         #endregion Records : ObservableCollection<Records> - get records collection
 
+        #region DbClearAll command
+
+        public ICommand DbClearAll { get; }
+
+        private bool CanDbClearAllExecuted(object p) => true;
+
+        private async void OnDbClearAllExecute(object p)
+        {
+            await DbManager.ClearAll();
+        }
+
+        #endregion DbClearAll command
+
+        public RecordsWindowViewModel()
+        {
+            DbClearAll = new LambdaCommand(OnDbClearAllExecute, CanDbClearAllExecuted);
+        }
     }
 }
