@@ -46,9 +46,24 @@ namespace Stopwatch.ViewModels
 
         #endregion DbClearAll command
 
+        #region DbDeleteLast command
+
+        public ICommand DbDeleteLast { get; }
+
+        private bool CanDbDeleteLastExecuted(object p) => true;
+
+        private async void OnDbDeleteLastExecute(object p)
+        {
+            await DbManager.DeleteLast();
+        }
+
+        #endregion DbDeleteLast command
+
         public RecordsWindowViewModel()
         {
             DbClearAll = new LambdaCommand(OnDbClearAllExecute, CanDbClearAllExecuted);
+
+            DbDeleteLast = new LambdaCommand(OnDbDeleteLastExecute, CanDbDeleteLastExecuted);
         }
     }
 }

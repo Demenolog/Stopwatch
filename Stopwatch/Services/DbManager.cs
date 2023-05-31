@@ -45,6 +45,18 @@ namespace Stopwatch.Services
             UpdateDb();
         }
 
+        public static async Task DeleteLast()
+        {
+            var lastItem = s_recordsDb.Records.OrderByDescending(e => e.RecordsId).FirstOrDefault();
+
+            if (lastItem != null)
+            {
+                s_recordsDb.Records.RemoveRange(lastItem);
+                await s_recordsDb.SaveChangesAsync();
+                UpdateDb();
+            }
+        }
+
         public static void UpdateDb()
         {
             s_recordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb!.Records!.ToList());

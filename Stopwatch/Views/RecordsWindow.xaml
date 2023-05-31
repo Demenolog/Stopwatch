@@ -18,6 +18,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <Button Style="{StaticResource BtnDefStyle}"
+                    Command="{Binding DbDeleteLast}"
                     Width="110"
                     Content="Delete last">
             </Button>
@@ -37,7 +38,7 @@
                                     Width="0.10*"/>
                 <DataGridTextColumn Header="Time" Binding="{Binding Time}"
                                     Width="0.50*"/>
-                <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime}"
+                <DataGridTextColumn Header="Total time" Binding="{Binding TotalTime}"
                                     Width="0.50*"/>
             </DataGrid.Columns>
         </DataGrid>
