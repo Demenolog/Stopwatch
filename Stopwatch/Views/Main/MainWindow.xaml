@@ -32,6 +32,7 @@
                     Command="{Binding MainButtonPressed}">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
+                    Command="{Binding Split}"
                     Content="Split">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"

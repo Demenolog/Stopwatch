@@ -106,6 +106,19 @@ namespace Stopwatch.ViewModels
 
         #endregion ShowRecords command
 
+        #region Split command
+
+        public ICommand Split { get; }
+
+        private bool CanSplitExecuted(object p) => true;
+
+        private async void OnSplitExecute(object p)
+        {
+            await DbManager.Add(_elapsedTime);
+        }
+
+        #endregion Split command
+
         #endregion Commands
 
         public MainWindowViewModel()
@@ -115,6 +128,8 @@ namespace Stopwatch.ViewModels
             Reset = new LambdaCommand(OnResetExecute, CanResetExecuted);
 
             ShowRecords = new LambdaCommand(OnShowRecordsExecute, CanShowRecordsExecuted);
+
+            Split = new LambdaCommand(OnSplitExecute, CanSplitExecuted);
         }
     }
 }
