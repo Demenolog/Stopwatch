@@ -25,18 +25,17 @@ namespace Stopwatch.ViewModels
 
         #endregion Title : string - title for records window
 
-        #region Records : ObservableCollection<Records> - get records db
+        #region Records : ObservableCollection<Records> - get records collection
 
-        public ObservableCollection<Records> Records { get; set; }
+        private ObservableCollection<Records> _records;
 
-        #endregion Records : ObservableCollection<Records> - get records db
-
-        public RecordsWindowViewModel()
+        public ObservableCollection<Records> Records
         {
-            using (var db = new RecordsDB())
-            {
-                Records = new ObservableCollection<Records>(db.Records.ToList());
-            }
+            get => _records;
+            set => SetField(ref _records, value);
         }
+
+        #endregion Records : ObservableCollection<Records> - get records collection
+
     }
 }

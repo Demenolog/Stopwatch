@@ -3,13 +3,15 @@ using Stopwatch.Database.Base;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using Stopwatch.ViewModels;
+using Stopwatch.ViewModels.Auxiliaries;
 
 namespace Stopwatch.Services
 {
     internal static class DbManager
     {
         private static RecordsDB? s_recordsDb;
-        public static ObservableCollection<Records>? RecordsCollection { get; set; }
+        private static RecordsWindowViewModel? s_recordsWindow = new ViewModelLocator().RecordsWindowModel;
         
         public static async void CreateDb()
         {
@@ -32,7 +34,7 @@ namespace Stopwatch.Services
                 MessageBox.Show("Connected to database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
-            RecordsCollection = new ObservableCollection<Records>(RecordsCollection!.ToArray());
+            s_recordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb.Records!.ToList());
         }
     }
 }
