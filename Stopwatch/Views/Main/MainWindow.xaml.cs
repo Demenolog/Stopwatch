@@ -1,6 +1,5 @@
-﻿using System.Windows.Interop;
+﻿using Stopwatch.Services;
 using System;
-using Stopwatch.Services;
 
 namespace Stopwatch
 {
@@ -12,14 +11,16 @@ namespace Stopwatch
 
         //protected override void OnSourceInitialized(EventArgs e)
         //{
-          
         //}
 
         protected override void OnClosed(EventArgs e)
         {
-            RecordsWindowService.RecordsWindow.Close();
+            if (RecordsWindowService.RecordsWindow != null)
+            {
+                RecordsWindowService.RecordsWindow.Close();
+            }
         }
 
-        #endregion
+        #endregion Life cycle
     }
 }
