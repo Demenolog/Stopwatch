@@ -19,11 +19,17 @@ namespace Stopwatch.Models
             CompositionTarget.Rendering += UpdateStopwatch;
         }
 
-        public static void Reset()
+        public static void ResetStop()
         {
             Stopwatch?.Reset();
 
             ChangeButtonStatus(Status.Reseted);
+        }
+
+        public static void ResetContinue()
+        {
+            Stopwatch?.Reset();
+            Stopwatch?.Start();
         }
 
         public static void RunOperation(bool isRunning)

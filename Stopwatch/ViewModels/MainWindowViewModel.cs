@@ -76,7 +76,7 @@ namespace Stopwatch.ViewModels
 
         #endregion Start command
         
-        #region Reset command
+        #region ResetStop command
 
         public ICommand Reset { get; }
 
@@ -84,7 +84,7 @@ namespace Stopwatch.ViewModels
 
         private void OnResetExecute(object p)
         {
-            StopwatchLogic.Reset();
+            StopwatchLogic.ResetStop();
         }
 
         #endregion
@@ -115,6 +115,7 @@ namespace Stopwatch.ViewModels
         private async void OnSplitExecute(object p)
         {
             await DbManager.Add(_elapsedTime);
+            StopwatchLogic.ResetContinue();
         }
 
         #endregion Split command

@@ -1,18 +1,21 @@
-﻿using Stopwatch.Database;
+﻿using System;
+using Stopwatch.Database;
 using Stopwatch.Database.Base;
 using Stopwatch.ViewModels;
 using Stopwatch.ViewModels.Auxiliaries;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 
 namespace Stopwatch.Services
 {
     internal static class DbManager
     {
         private static RecordsDB? s_recordsDb;
-        private static RecordsWindowViewModel? s_recordsWindow = new ViewModelLocator().RecordsWindowModel;
+        private static readonly RecordsWindowViewModel? s_recordsWindow = new ViewModelLocator().RecordsWindowModel;
 
         public static async Task CreateDb()
         {
@@ -40,19 +43,58 @@ namespace Stopwatch.Services
         {
             s_recordsDb?.RemoveRange(s_recordsDb.Records!);
 
-            s_recordsDb?.SaveChangesAsync();
+            await s_recordsDb?.SaveChangesAsync()!;
+
+            ResetId();
+
+            UpdateDb();
+        }
+
+        public static async Task Add(TimeSpan time)
+        {
+            if (s_recordsDb!.Records!.Any())
+            {
+                var lastItem = s_recordsDb.Records!
+                    .OrderByDescending(item => item.RecordsId)
+                    .FirstOrDefault();
+
+                //var lastTime = TimeSpan.Parse(lastItem.Time);
+                var lastTotalTime = TimeSpan.ParseExact(lastItem.TotalTime, @"hh\:mm\:ss\:fff", CultureInfo.InvariantCulture);
+
+                await s_recordsDb.Records!.AddAsync(new Records()
+                {
+                    Time = time.ToString(@"hh\:mm\:ss\:fff"),
+                    TotalTime = (time + lastTotalTime).ToString(@"hh\:mm\:ss\:fff")
+                });
+            }
+            else
+            {
+                await s_recordsDb.Records.AddAsync(new Records()
+                {
+                    Time = time.ToString(@"hh\:mm\:ss\:fff"),
+                    TotalTime = time.ToString(@"hh\:mm\:ss\:fff")
+                });
+            }
+
+            await s_recordsDb.SaveChangesAsync();
 
             UpdateDb();
         }
 
         public static async Task DeleteLast()
         {
-            var lastItem = s_recordsDb.Records.OrderByDescending(e => e.RecordsId).FirstOrDefault();
+            var lastItem = s_recordsDb!.Records!.OrderByDescending(e => e.RecordsId).FirstOrDefault();
 
             if (lastItem != null)
             {
-                s_recordsDb.Records.RemoveRange(lastItem);
+                s_recordsDb.Records!.RemoveRange(lastItem);
                 await s_recordsDb.SaveChangesAsync();
+
+                if (!s_recordsDb.Records.Any())
+                {
+                    ResetId();
+                }
+
                 UpdateDb();
             }
         }
@@ -60,6 +102,11 @@ namespace Stopwatch.Services
         public static void UpdateDb()
         {
             s_recordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb!.Records!.ToList());
+        }
+
+        private static void ResetId()
+        {
+            s_recordsDb.Database.ExecuteSqlRaw("UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='Records';");
         }
     }
 }

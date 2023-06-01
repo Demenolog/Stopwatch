@@ -1,12 +1,13 @@
-﻿using Stopwatch.Views;
+﻿using System.Threading.Tasks;
+using Stopwatch.Views;
 
 namespace Stopwatch.Services
 {
     internal static class RecordsWindowService
     {
-        private static RecordsWindow s_recordsWindow = null;
+        private static RecordsWindow? s_recordsWindow = null;
 
-        public static RecordsWindow RecordsWindow
+        public static RecordsWindow? RecordsWindow
         {
             get => s_recordsWindow;
             set => s_recordsWindow = value;
@@ -19,7 +20,7 @@ namespace Stopwatch.Services
                 return false;
             }
 
-            DbManager.CreateDb();
+            Task.Run(DbManager.CreateDb().Start);
 
             RecordsWindow = new RecordsWindow();
             RecordsWindow.Closed += (o, args) => RecordsWindow = null;
