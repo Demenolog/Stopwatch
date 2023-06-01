@@ -4,6 +4,7 @@ using Stopwatch.Database.Base;
 using Stopwatch.ViewModels;
 using Stopwatch.ViewModels.Auxiliaries;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Stopwatch.Services
     internal static class DbManager
     {
         private static RecordsDB? s_recordsDb;
-        private static readonly RecordsWindowViewModel? s_recordsWindow = new ViewModelLocator().RecordsWindowModel;
+        private static readonly RecordsWindowViewModel? RecordsWindow = new ViewModelLocator().RecordsWindowModel;
 
         public static async Task CreateDb()
         {
@@ -26,9 +27,7 @@ namespace Stopwatch.Services
 
             s_recordsDb = new RecordsDB();
 
-            bool isExist = await s_recordsDb.Database.CanConnectAsync();
-
-            if (!isExist)
+            if (!await s_recordsDb.Database.CanConnectAsync())
             {
                 await s_recordsDb.Database.EnsureCreatedAsync();
                 MessageBox.Show("New database created", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -69,7 +68,7 @@ namespace Stopwatch.Services
             }
             else
             {
-                await s_recordsDb.Records.AddAsync(new Records()
+                await s_recordsDb.Records!.AddAsync(new Records()
                 {
                     Time = time.ToString(@"hh\:mm\:ss\:fff"),
                     TotalTime = time.ToString(@"hh\:mm\:ss\:fff")
@@ -99,14 +98,22 @@ namespace Stopwatch.Services
             }
         }
 
+        public static void CloseConnection()
+        {
+            if (s_recordsDb != null)
+            {
+                s_recordsDb.Dispose();
+            }
+        }
+
         public static void UpdateDb()
         {
-            s_recordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb!.Records!.ToList());
+            RecordsWindow!.Records = new ObservableCollection<Records>(s_recordsDb!.Records!.ToList());
         }
 
         private static void ResetId()
         {
-            s_recordsDb.Database.ExecuteSqlRaw("UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='Records';");
+            s_recordsDb!.Database.ExecuteSqlRaw("UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='Records';");
         }
     }
 }

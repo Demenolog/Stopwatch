@@ -95,7 +95,7 @@ namespace Stopwatch.ViewModels
 
         private bool CanShowRecordsExecuted(object p) => true;
 
-        private async void OnShowRecordsExecute(object p)
+        private void OnShowRecordsExecute(object p)
         {
             if (RecordsWindowService.Create())
             {

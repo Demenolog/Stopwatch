@@ -19,6 +19,8 @@ namespace Stopwatch
             {
                 RecordsWindowService.RecordsWindow.Close();
             }
+
+            DbManager.CloseConnection();
         }
 
         #endregion Life cycle
