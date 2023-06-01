@@ -17,6 +17,7 @@ namespace Stopwatch.Services
     {
         private static RecordsDB? s_recordsDb;
         private static readonly RecordsWindowViewModel? RecordsWindow = new ViewModelLocator().RecordsWindowModel;
+        private static readonly MainWindowViewModel? MainWindow = new ViewModelLocator().MainWindowModel;
 
         public static async Task CreateDb()
         {
@@ -34,8 +35,10 @@ namespace Stopwatch.Services
             }
             else
             {
-                MessageBox.Show("Connected to database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Connected to an existing database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
+            MainWindow!.IsSplitEnable = true;
         }
 
         public static async Task ClearAll()
@@ -57,7 +60,6 @@ namespace Stopwatch.Services
                     .OrderByDescending(item => item.RecordsId)
                     .FirstOrDefault();
 
-                //var lastTime = TimeSpan.Parse(lastItem.Time);
                 var lastTotalTime = TimeSpan.ParseExact(lastItem.TotalTime, @"hh\:mm\:ss\:fff", CultureInfo.InvariantCulture);
 
                 await s_recordsDb.Records!.AddAsync(new Records()

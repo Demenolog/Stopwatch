@@ -59,6 +59,18 @@ namespace Stopwatch.ViewModels
 
         #endregion MainButtonStatus : string - Change button name based on status
 
+        #region IsSplitEnable : bool - Shows if button is available
+
+        private bool _isSplitEnable;
+
+        public bool IsSplitEnable
+        {
+            get => _isSplitEnable;
+            set => SetField(ref _isSplitEnable, value);
+        }
+
+        #endregion IsSplitEnable : bool - Show is split button enable
+
         #endregion Properties
 
         #region Commands

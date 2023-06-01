@@ -33,6 +33,7 @@
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
                     Command="{Binding Split}"
+                    IsEnabled="{Binding IsSplitEnable}"
                     Content="Split">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
