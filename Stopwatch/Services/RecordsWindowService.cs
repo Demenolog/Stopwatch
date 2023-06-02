@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using Stopwatch.Views;
 
 namespace Stopwatch.Services
@@ -15,15 +17,13 @@ namespace Stopwatch.Services
 
         public static bool Create()
         {
-            if (RecordsWindow != null)
-            {
-                return false;
-            }
+            if (RecordsWindow != null) return false;
 
             _ = DbManager.CreateDb();
 
             RecordsWindow = new RecordsWindow();
             RecordsWindow.Closed += (o, args) => RecordsWindow = null;
+            RecordsWindow.Icon = new BitmapImage(new Uri("pack://application:,,,/Resources/Icons/RecordsIcon.ico"));
 
             return true;
         }
