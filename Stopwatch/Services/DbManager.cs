@@ -38,7 +38,7 @@ namespace Stopwatch.Services
                 MessageBox.Show("Connected to an existing database", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
-            MainWindow!.IsSplitEnable = true;
+            MainWindow!.IsSplitEnabled = true;
         }
 
         public static async Task ClearAll()

@@ -33,11 +33,12 @@
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
                     Command="{Binding Split}"
-                    IsEnabled="{Binding IsSplitEnable}"
+                    IsEnabled="{Binding IsSplitEnabled}"
                     Content="Split">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
                     Command="{Binding Reset}"
+                    IsEnabled="{Binding IsResetEnabled}"
                     Content="Reset">
             </Button>
             <Button Style="{DynamicResource BtnDefStyle}"
