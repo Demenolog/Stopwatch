@@ -50,6 +50,8 @@ namespace Stopwatch.Services
             ResetId();
 
             UpdateDb();
+
+            RecordsWindow.IsDbAny = false;
         }
 
         public static async Task Add(TimeSpan time)
@@ -75,6 +77,8 @@ namespace Stopwatch.Services
                     Time = time.ToString(@"hh\:mm\:ss\:fff"),
                     TotalTime = time.ToString(@"hh\:mm\:ss\:fff")
                 });
+
+                RecordsWindow.IsDbAny = true;
             }
 
             await s_recordsDb.SaveChangesAsync();
@@ -94,6 +98,7 @@ namespace Stopwatch.Services
                 if (!s_recordsDb.Records.Any())
                 {
                     ResetId();
+                    RecordsWindow.IsDbAny = false;
                 }
 
                 UpdateDb();

@@ -1,14 +1,16 @@
 ﻿using Stopwatch.Database;
 using Stopwatch.Infrastructure.Commands;
+using Stopwatch.Services;
 using Stopwatch.ViewModels.Base;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Stopwatch.Services;
 
 namespace Stopwatch.ViewModels
 {
     internal class RecordsWindowViewModel : ViewModel
     {
+        #region Properties
+
         #region Title : string - title for records window
 
         private string _title = "Records";
@@ -32,6 +34,22 @@ namespace Stopwatch.ViewModels
         }
 
         #endregion Records : ObservableCollection<Records> - get records collection
+
+        #region IsDbAny : bool - Show if db is empty
+
+        private bool _isDbAny;
+
+        public bool IsDbAny
+        {
+            get => _isDbAny;
+            set => SetField(ref _isDbAny, value);
+        }
+
+        #endregion IsDbAny : bool - Show if db is empty
+
+        #endregion Properties
+
+        #region Commands
 
         #region DbClearAll command
 
@@ -58,6 +76,8 @@ namespace Stopwatch.ViewModels
         }
 
         #endregion DbDeleteLast command
+
+        #endregion Commands
 
         public RecordsWindowViewModel()
         {
