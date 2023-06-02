@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using Stopwatch.Database;
 using Stopwatch.Database.Base;
 using Stopwatch.ViewModels;
 using Stopwatch.ViewModels.Auxiliaries;
+using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.EntityFrameworkCore;
 
 namespace Stopwatch.Services
 {
@@ -39,6 +38,11 @@ namespace Stopwatch.Services
             }
 
             MainWindow!.IsSplitEnabled = true;
+
+            if (s_recordsDb!.Records!.Any())
+            {
+                RecordsWindow.IsDbAny = true;
+            }
         }
 
         public static async Task ClearAll()
@@ -66,16 +70,16 @@ namespace Stopwatch.Services
 
                 await s_recordsDb.Records!.AddAsync(new Records()
                 {
-                    Time = time.ToString(@"hh\:mm\:ss\:fff"),
-                    TotalTime = (time + lastTotalTime).ToString(@"hh\:mm\:ss\:fff")
+                    Time = time.ToStringTime(),
+                    TotalTime = (time + lastTotalTime).ToStringTime()
                 });
             }
             else
             {
                 await s_recordsDb.Records!.AddAsync(new Records()
                 {
-                    Time = time.ToString(@"hh\:mm\:ss\:fff"),
-                    TotalTime = time.ToString(@"hh\:mm\:ss\:fff")
+                    Time = time.ToStringTime(),
+                    TotalTime = time.ToStringTime()
                 });
 
                 RecordsWindow.IsDbAny = true;
@@ -97,9 +101,10 @@ namespace Stopwatch.Services
 
                 if (!s_recordsDb.Records.Any())
                 {
-                    ResetId();
                     RecordsWindow.IsDbAny = false;
                 }
+
+                ResetId();
 
                 UpdateDb();
             }
@@ -120,7 +125,15 @@ namespace Stopwatch.Services
 
         private static void ResetId()
         {
-            s_recordsDb!.Database.ExecuteSqlRaw("UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='Records';");
+            var lastItem = s_recordsDb!.Records!.OrderByDescending(e => e.RecordsId).FirstOrDefault();
+            var lastId = 0;
+
+            if (lastItem != null)
+            {
+                lastId = lastItem.RecordsId;
+            }
+
+            s_recordsDb!.Database.ExecuteSqlRaw($"UPDATE SQLITE_SEQUENCE SET SEQ={lastId} WHERE NAME='Records';");
         }
     }
 }
