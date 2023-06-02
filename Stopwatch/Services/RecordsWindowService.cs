@@ -20,7 +20,7 @@ namespace Stopwatch.Services
                 return false;
             }
 
-            Task.Run(DbManager.CreateDb().Start);
+            _ = DbManager.CreateDb();
 
             RecordsWindow = new RecordsWindow();
             RecordsWindow.Closed += (o, args) => RecordsWindow = null;
@@ -28,16 +28,13 @@ namespace Stopwatch.Services
             return true;
         }
 
-        public static bool Show()
+        public static void Show()
         {
             if (RecordsWindow != null)
             {
                 RecordsWindow.Show();
                 RecordsWindow.Focus();
-                return true;
             }
-
-            return false;
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using Stopwatch.ViewModels;
+using Stopwatch.ViewModels.Auxiliaries;
+using System;
 using System.Windows;
 using System.Windows.Media;
-using Stopwatch.ViewModels;
-using Stopwatch.ViewModels.Auxiliaries;
 using static Stopwatch.Infrastructure.Constans.ButtonStatus;
 
 namespace Stopwatch.Models
@@ -16,6 +15,7 @@ namespace Stopwatch.Models
         static StopwatchLogic()
         {
             MainWindow = new ViewModelLocator().MainWindowModel;
+            MainWindow.IsResetEnabled = true;
             CompositionTarget.Rendering += UpdateStopwatch;
         }
 
@@ -29,7 +29,11 @@ namespace Stopwatch.Models
         public static void ResetContinue()
         {
             Stopwatch?.Reset();
-            Stopwatch?.Start();
+
+            if (MainWindow.IsRunning)
+            {
+                Stopwatch?.Start();
+            }
         }
 
         public static void RunOperation(bool isRunning)
@@ -42,10 +46,12 @@ namespace Stopwatch.Models
                         ChangeButtonStatus(Status.Started);
                         Start();
                         break;
+
                     case true when Stopwatch != null:
                         ChangeButtonStatus(Status.Stopped);
                         Stop();
                         break;
+
                     default:
                         ChangeButtonStatus(Status.Continued);
                         Continue();
@@ -66,14 +72,17 @@ namespace Stopwatch.Models
                     MainWindow.MainButtonStatus = "Stop";
                     MainWindow.IsRunning = true;
                     break;
+
                 case Status.Stopped:
                     MainWindow.MainButtonStatus = "Continue";
                     MainWindow.IsRunning = false;
                     break;
+
                 case Status.Reseted:
                     MainWindow.MainButtonStatus = "Start";
                     MainWindow.IsRunning = false;
                     break;
+
                 default:
                     MainWindow.MainButtonStatus = "Stop";
                     MainWindow.IsRunning = true;
