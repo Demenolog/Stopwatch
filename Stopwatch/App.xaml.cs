@@ -18,7 +18,6 @@ namespace Stopwatch
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddServices();
             services.AddViewModel();
         }
 

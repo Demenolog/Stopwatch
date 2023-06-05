@@ -10,7 +10,7 @@ namespace Stopwatch.Models
     internal static class StopwatchLogic
     {
         private static MainWindowViewModel MainWindow { get; }
-        private static System.Diagnostics.Stopwatch Stopwatch { get; set; } = null!;
+        private static System.Diagnostics.Stopwatch Stopwatch { get; set; }
 
         static StopwatchLogic()
         {
@@ -21,15 +21,13 @@ namespace Stopwatch.Models
 
         public static void ResetStop()
         {
-            Stopwatch?.Reset();
-
+            Reset();
             ChangeButtonStatus(Status.Reseted);
         }
 
         public static void ResetContinue()
         {
-            Stopwatch?.Reset();
-
+            Reset();
             if (MainWindow.IsRunning)
             {
                 Stopwatch?.Start();
@@ -43,18 +41,18 @@ namespace Stopwatch.Models
                 switch (isRunning)
                 {
                     case false when Stopwatch == null:
-                        ChangeButtonStatus(Status.Started);
                         Start();
+                        ChangeButtonStatus(Status.Started);
                         break;
 
                     case true when Stopwatch != null:
-                        ChangeButtonStatus(Status.Stopped);
                         Stop();
+                        ChangeButtonStatus(Status.Stopped);
                         break;
 
                     default:
-                        ChangeButtonStatus(Status.Continued);
                         Continue();
+                        ChangeButtonStatus(Status.Continued);
                         break;
                 }
             }
@@ -62,6 +60,27 @@ namespace Stopwatch.Models
             {
                 MessageBox.Show("Error", ex.Message);
             }
+        }
+
+        private static void Reset()
+        {
+            Stopwatch?.Reset();
+        }
+
+        private static void Continue()
+        {
+            Stopwatch?.Start();
+        }
+
+        private static void Start()
+        {
+            Stopwatch = new System.Diagnostics.Stopwatch();
+            Stopwatch.Start();
+        }
+
+        private static void Stop()
+        {
+            Stopwatch.Stop();
         }
 
         private static void ChangeButtonStatus(Enum status)
@@ -90,26 +109,12 @@ namespace Stopwatch.Models
             }
         }
 
-        private static void Continue()
-        {
-            Stopwatch?.Start();
-        }
-
-        private static void Start()
-        {
-            Stopwatch = new System.Diagnostics.Stopwatch();
-
-            Stopwatch?.Start();
-        }
-
-        private static void Stop()
-        {
-            Stopwatch.Stop();
-        }
-
         private static void UpdateStopwatch(object? sender, EventArgs args)
         {
-            MainWindow.ElapsedTime = Stopwatch!.Elapsed;
+            if (Stopwatch != null)
+            {
+                MainWindow.ElapsedTime = Stopwatch.Elapsed;
+            }
         }
     }
 }

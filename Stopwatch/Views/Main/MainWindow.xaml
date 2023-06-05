@@ -10,8 +10,8 @@
         Height="175" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"

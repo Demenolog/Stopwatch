@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Stopwatch.Views;
+using System;
 using System.Windows.Media.Imaging;
-using Stopwatch.Views;
 
 namespace Stopwatch.Services
 {
     internal static class RecordsWindowService
     {
-        private static RecordsWindow? s_recordsWindow = null;
+        private static RecordsWindow? s_recordsWindow;
 
         public static RecordsWindow? RecordsWindow
         {
@@ -17,24 +16,27 @@ namespace Stopwatch.Services
 
         public static bool Create()
         {
-            if (RecordsWindow != null) return false;
+            if (RecordsWindow != null)
+            {
+                return false;
+            }
 
             _ = DbManager.CreateDb();
 
-            RecordsWindow = new RecordsWindow();
+            RecordsWindow = new RecordsWindow
+            {
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Resources/Icons/RecordsIcon.ico"))
+            };
+
             RecordsWindow.Closed += (o, args) => RecordsWindow = null;
-            RecordsWindow.Icon = new BitmapImage(new Uri("pack://application:,,,/Resources/Icons/RecordsIcon.ico"));
 
             return true;
         }
 
         public static void Show()
         {
-            if (RecordsWindow != null)
-            {
-                RecordsWindow.Show();
-                RecordsWindow.Focus();
-            }
+            RecordsWindow?.Show();
+            RecordsWindow?.Focus();
         }
     }
 }
