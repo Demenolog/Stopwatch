@@ -7,31 +7,43 @@
         DataContext="{Binding Path=MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}"
         ResizeMode="CanMinimize"
-        Height="150" Width="300">
+        Height="175" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Label Content="{Binding ElapsedTime}"
+                   ContentStringFormat="{}{0:hh}:{0:mm}:{0:ss}:{0:fff}" 
+                   FontFamily="Albertus Extra Bold" 
+                   FontSize="50">
+            </Label>
+        </StackPanel>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Content="{Binding MainButtonStatus, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding MainButtonPressed}">
             </Button>
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Command="{Binding Split}"
+                    IsEnabled="{Binding IsSplitEnabled}"
+                    Content="Split">
             </Button>
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Command="{Binding Reset}"
+                    IsEnabled="{Binding IsResetEnabled}"
+                    Content="Reset">
             </Button>
-            <Button Height="30"
-                    Width="50"
-                    Margin="10">
+            <Button Style="{DynamicResource BtnDefStyle}"
+                    Command="{Binding ShowRecords}"
+                    Content="Records">
             </Button>
         </StackPanel>
     </Grid>

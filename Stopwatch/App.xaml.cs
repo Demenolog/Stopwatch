@@ -4,6 +4,7 @@ using Stopwatch.Services;
 using Stopwatch.ViewModels;
 using System;
 using System.Windows;
+using Stopwatch.ViewModels.Auxiliaries;
 
 namespace Stopwatch
 {
@@ -17,7 +18,6 @@ namespace Stopwatch
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddServices();
             services.AddViewModel();
         }
 
