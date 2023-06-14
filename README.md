@@ -7,7 +7,7 @@ Stopwatch is a desktop application for measuring the amount of time that elapses
 * Save your results to a table.
 
 ## Platform
-Available for Windows OS. Should also work on macOS and Linux.
+Available for Windows OS.
 
 ## Installation
 If you have .NET 7.0 installed on your PC then download Winx??_NE.rar - "NE - .NET 7.0 Excluded"
